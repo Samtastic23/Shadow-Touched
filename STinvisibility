@@ -1,0 +1,12 @@
+!alias STinvisibility <drac2>
+(ch:=character()).create_cc_nx((cc:="Shadow Touched: Invisibility"),0,1,'long','bubble')
+i = argparse(&ARGS&).get('i')
+v = ch.get_cc(cc) or i
+f = "You can cast this spells without expending a spell slot. Once you cast this spell in this way, you can't cast it in this way again until you finish a long rest. You can also cast this spells using spell slots you have of the appropriate level."
+foot = f"{ctx.prefix}{ctx.alias} [casting arguments] [-i]"
+if v:
+    ch.mod_cc(cc, -1) if not i else ''
+    return f"""cast "Invisibility" -i &*& -phrase "using the {cc}!" -f "{f}" -f "{cc} {'' if i else '(-1)'}|{ch.cc_str(cc)}" -f "{foot}" """
+else:
+    return f"""embed -title "{name} tries to use the {cc}!" -desc "You're all out of uses!" -f "{f}" -f "{cc}|{ch.cc_str(cc)}" -footer "{foot}" """
+</drac2> -thumb https://media-waterdeep.cursecdn.com/attachments/2/704/illusion.png
